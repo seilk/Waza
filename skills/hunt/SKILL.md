@@ -1,7 +1,7 @@
 ---
 name: hunt
 description: "Finds root cause of errors, crashes, unexpected behavior, and failing tests before applying any fix. Not for code review or new features."
-when_to_use: "排查, 查查, 报错, 崩溃, 不工作, 不对, 跑不通, debug, why broken, not working, what's wrong, fix error, stack trace"
+when_to_use: "원인 찾아줘, 확인해줘, 에러, 크래시, 작동 안 해, 이상해, 실행 안 돼, debug, why broken, not working, what's wrong, fix error, stack trace"
 metadata:
   version: "3.17.0"
 ---

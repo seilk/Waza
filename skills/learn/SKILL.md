@@ -1,7 +1,7 @@
 ---
 name: learn
 description: "Runs a six-phase research workflow to turn unfamiliar domains or collected sources into publish-ready output. Not for quick lookups or single-file reads."
-when_to_use: "学习一下, 深入研究, 研究一下, 整理成文章, research, deep dive, help me understand, compile sources, unfamiliar domain"
+when_to_use: "공부해보자, 깊게 조사해줘, 조사해줘, 글로 정리해줘, research, deep dive, help me understand, compile sources, unfamiliar domain"
 metadata:
   version: "3.15.0"
 ---

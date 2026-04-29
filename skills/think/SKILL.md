@@ -1,7 +1,7 @@
 ---
 name: think
 description: "Turns rough ideas into approved plans with validated structure before writing code. Covers new features, architecture decisions, and value judgments about whether to build, keep, or remove something. Not for bug fixes or small edits."
-when_to_use: "出方案, 给方案, 深入分析, 怎么设计, 用什么方案, 判断一下, 有没有必要, 值不值得, what's the best approach, plan this, how should I, should we keep this"
+when_to_use: "방안 내줘, 계획 세워줘, 깊게 분석해줘, 어떻게 설계할까, 어떤 방안이 좋을까, 판단해줘, 필요할까, 할 가치가 있을까, what's the best approach, plan this, how should I, should we keep this"
 metadata:
   version: "3.16.0"
 ---
@@ -24,7 +24,7 @@ Upgrade to full mode if you find 3 or more genuinely different approaches with m
 
 ## Evaluation Mode
 
-Activate when the user wants to judge whether something should exist, be kept, exposed, or removed. Typical triggers: "判断一下", "有没有必要", "值不值得", "should we keep this", "is this worth it".
+Activate when the user wants to judge whether something should exist, be kept, exposed, or removed. Typical triggers: "판단해줘", "필요할까", "가치가 있을까", "should we keep this", "is this worth it".
 
 State the evaluation target and what kind of judgment is needed (value, risk, or tradeoff). Take a current-state snapshot: what it does, who uses it, what depends on it; grep and read before opining. Give one recommended conclusion with rationale; no options list. If the conclusion is "remove" or "major rework", list impact scope: files, dependents, migration cost. Wait for confirmation before acting.
 
@@ -83,7 +83,7 @@ Get approval before proceeding. If the user rejects, ask specifically what did n
 | User said "just fix X" and skipped /think | If the fix touches 3+ files or needs a method choice, pause and run Lightweight Mode |
 | Built against wrong regional API (Shengwang vs Agora) | List all regional differences before writing integration code |
 | Added FastAPI backend to a Next.js project | Never add a new language or runtime without explicit approval |
-| User said "判断一下这个报错" and got Evaluation Mode | "判断一下" + error/bug context = debugging, route to `/hunt`. Evaluation Mode is for value/existence judgments only |
+| User said "이 에러 판단해줘" and got Evaluation Mode | "판단해줘" + error/bug context = debugging, route to `/hunt`. Evaluation Mode is for value/existence judgments only |
 
 ## Output
 

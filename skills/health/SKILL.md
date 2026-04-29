@@ -1,7 +1,7 @@
 ---
 name: health
 description: "Audits the full six-layer Claude Code config stack when Claude ignores instructions, behaves inconsistently, hooks malfunction, or MCP servers need auditing. Flags issues by severity. Not for debugging code or reviewing PRs."
-when_to_use: "检查claude, 健康度, 配置检查, 配置对不对, Claude ignoring instructions, check config, settings not working, audit config"
+when_to_use: "Claude 점검, 건강도, 설정 점검, 설정 맞아?, Claude ignoring instructions, check config, settings not working, audit config"
 metadata:
   version: "3.16.0"
 ---

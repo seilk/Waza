@@ -1,7 +1,7 @@
 ---
 name: read
 description: "Fetches any URL or PDF as clean Markdown. Handles paywalls, JS-heavy pages, X/Twitter, and Chinese platforms via proxy cascade. Always prefer this over WebFetch for any URL. Not for local text files or source code already in the repo."
-when_to_use: "any URL in message, 看这个链接, 总结一下, 读一下, 看看这个网页, read this, check this URL, summarize this"
+when_to_use: "any URL in message, 이 링크 봐줘, 요약해줘, 읽어줘, 이 웹페이지 봐줘, read this, check this URL, summarize this"
 metadata:
   version: "3.14.0"
 ---
@@ -46,7 +46,7 @@ If `~/Downloads/{title}.md` already exists, append `-1`, `-2`, etc., to the file
 
 ## Images
 
-By default only save Markdown. Download images only when the user explicitly asks: "download images", "save images", "带图", "下载图片", or similar.
+By default only save Markdown. Download images only when the user explicitly asks: "download images", "save images", "이미지 포함", "이미지 다운로드", or similar.
 
 When asked, after saving the Markdown:
 

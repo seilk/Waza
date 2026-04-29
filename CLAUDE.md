@@ -17,8 +17,8 @@ skills/
 ├── learn/        -- research to published output
 ├── read/         -- fetch URL or PDF as Markdown
 ├── think/        -- design and validate before building
-└── write/        -- natural prose in Chinese and English
-    └── references/  -- write-zh.md, write-en.md
+└── write/        -- natural prose in Korean, Chinese, and English
+    └── references/  -- write-ko.md, write-zh.md, write-en.md
 .claude-plugin/
   marketplace.json    -- plugin registry for npx/plugin distribution
 ```
@@ -40,6 +40,7 @@ Before adding a new capability, decide which layer it belongs in. Waza's eight s
 Examples in this repo:
 - `verify-skills.sh` = script (frontmatter / references / version parity, all deterministic)
 - `rules/english.md` = rule (applies in every session, no judgment needed)
+- `rules/korean.md` = rule (anti-AI patterns for Korean output, deterministic)
 - `rules/chinese.md` = rule (anti-AI patterns for Chinese output, deterministic)
 - `/think`, `/hunt`, `/check` = skills (each reads the situation and decides)
 - `/health` diagnostics = skill (tier-aware, context-sensitive)
@@ -73,9 +74,9 @@ Run `./scripts/verify-skills.sh` before any commit. If the diff is non-trivial, 
 1. **SkillName**: One sentence on what changed and its user effect.
 2. ...
 
-### 更新日志
+### 변경 사항
 
-1. **技能名**: 一句话说清楚改了什么以及对用户的影响。
+1. **스킬명**: 무엇이 바뀌었고 사용자에게 어떤 영향이 있는지 한 문장.
 2. ...
 
 Update: `npx skills add tw93/Waza@latest` · ⭐ [tw93/Waza](https://github.com/tw93/Waza)

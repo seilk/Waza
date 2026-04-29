@@ -2,70 +2,70 @@
 
 ## Shared Output Marker
 
-所有技能都沿用同一个输出约定：首行内联带上 `🥷`，不要单独起段。这个约定写在各自的 `SKILL.md` 里，`verify-skills.sh` 也会校验它。
+모든 스킬은 같은 출력 규칙을 따른다. 첫 줄에 `🥷`를 인라인으로 붙이고, 별도 단락으로 떼지 않는다. 이 규칙은 각 `SKILL.md`에 적혀 있고, `verify-skills.sh`도 이 규칙을 검증한다.
 
-触发词到技能的路由表。Claude Code 通过每个 SKILL.md 的 `description` 自动匹配，这份文档是给人看的集中索引，也是 `verify-skills.sh` 的校验依据。改 SKILL.md 的适用范围时，同步改这里。
+트리거 단어에서 스킬로 가는 라우팅 표. Claude Code는 각 SKILL.md의 `description`으로 자동 매칭하고, 이 문서는 사람이 보는 인덱스이자 `verify-skills.sh`의 검증 기준이다. SKILL.md의 적용 범위를 바꿀 때 같이 바꾼다.
 
-> **Read the skill file before acting.** 两个技能都可能匹配时，两个都读。它们设计成可串联（例：`/think` → 实现 → `/check`）。
+> **행동 전에 스킬 파일을 먼저 읽는다.** 두 스킬이 동시에 매칭될 수 있으면 둘 다 읽는다. 스킬은 체이닝되도록 설계됐다(예: `/think` → 구현 → `/check`).
 
-## 按工作流阶段分路
+## 워크플로 단계별 라우팅
 
-### Pre-build（动手前）
+### Pre-build (작업 시작 전)
 
-| 触发 | 技能 |
+| 트리거 | 스킬 |
 |------|------|
-| 新功能 / 架构决策 / "怎么设计" / "应该用什么方案" / "判断一下" / "有没有必要" / "值不值得" | `skills/think/SKILL.md` |
-| UI / 组件 / 页面 / 视觉界面 / 前端 | `skills/design/SKILL.md` |
+| 새 기능 / 아키텍처 결정 / "어떻게 설계할까" / "어떤 방안이 좋을까" / "판단해줘" / "필요할까" / "할 가치가 있을까" | `skills/think/SKILL.md` |
+| UI / 컴포넌트 / 페이지 / 시각 인터페이스 / 프론트엔드 | `skills/design/SKILL.md` |
 
-### Post-build（交付前）
+### Post-build (인도 전)
 
-| 触发 | 技能 |
+| 트리거 | 스킬 |
 |------|------|
-| 实现完成 / 合并前 / "review 一下" / "看看这段代码" | `skills/check/SKILL.md` |
-| review issue / review PR / triage / 批量处理 / "看看有没有 issue" | `skills/check/SKILL.md` (Triage Mode) |
+| 구현 완료 / 머지 전 / "review 해줘" / "이 코드 봐줘" | `skills/check/SKILL.md` |
+| review issue / review PR / triage / 일괄 처리 / "issue 좀 봐줘" | `skills/check/SKILL.md` (Triage Mode) |
 
-### Diagnostic（出问题了）
+### Diagnostic (문제 발생)
 
-| 触发 | 技能 |
+| 트리거 | 스킬 |
 |------|------|
-| 报错 / 崩溃 / 测试失败 / 行为异常 / "为什么不工作" | `skills/hunt/SKILL.md` |
-| Claude 忽略指令 / hook 失灵 / MCP 异常 / 配置审计 | `skills/health/SKILL.md` |
+| 에러 / 크래시 / 테스트 실패 / 비정상 동작 / "왜 안 돼" | `skills/hunt/SKILL.md` |
+| Claude가 지시 무시 / hook 안 먹음 / MCP 이상 / 설정 점검 | `skills/health/SKILL.md` |
 
-### Content（内容进出）
+### Content (들어오고 나가는 콘텐츠)
 
-| 触发 | 技能 |
+| 트리거 | 스킬 |
 |------|------|
-| 消息含 http(s) URL / 任何网页链接 / PDF 路径 / "看一下这个", "总结这个" | `skills/read/SKILL.md` |
-| 写作 / 改稿 / 润色 / 去 AI 味（中英文） | `skills/write/SKILL.md` |
-| 深度研究一个陌生领域 / 六阶段研究到成稿 / 一批材料沉淀成文章 | `skills/learn/SKILL.md` |
+| 메시지에 http(s) URL / 웹페이지 링크 / PDF 경로 / "이거 봐줘", "요약해줘" | `skills/read/SKILL.md` |
+| 글쓰기 / 원고 수정 / 다듬기 / AI 티 빼기 (한국어/중국어/영어) | `skills/write/SKILL.md` |
+| 낯선 도메인 깊게 조사 / 6단계 연구 → 출간 / 자료 묶음을 글로 | `skills/learn/SKILL.md` |
 
-## Disambiguation（歧义消解）
+## Disambiguation (모호함 해소)
 
-多个技能都可能匹配时按以下规则：
+여러 스킬이 동시에 매칭되면 다음 규칙으로 판단한다.
 
-1. **最具体优先**：`/design` 比 `/think` 更具体（仅限 UI 决策）。用户说"帮我设计登录页"时优先 `/design`。
-2. **URL 按内容类型二次分流**：消息含 URL → 先走 `/read` 取回 Markdown → 如果是长文研究性素材再接 `/learn`；如果只是要一句总结就停在 `/read` 的输出。
-3. **改错 vs review**：代码已经交付或走到 PR → `/check`；代码跑不通或行为错了 → `/hunt`。两者都可能匹配"帮我看看"，按"有没有具体错误现象"判断。
-4. **配置异常 vs 代码错误**：Claude 本身不听话、hook 不触发、MCP 掉链子 → `/health`；用户写的代码抛异常 → `/hunt`。
-5. **长文产出 vs 润色**：从零到成稿 → `/learn`；已有稿子要改 → `/write`。
-6. **判断 vs 调试**："判断一下" + 报错/异常/不工作 → `/hunt`（诊断问题）；"判断一下" + 有没有必要/该不该保留/值不值得 → `/think` Evaluation Mode（价值判断）。
-7. **兜底**：两个都模糊时读两个 SKILL.md 的 "Not for" 段，用排除法；还是模糊就问用户。
+1. **더 구체적인 게 우선**: `/design`은 `/think`보다 구체적이다(UI 결정 한정). 사용자가 "로그인 페이지 만들어줘"라고 하면 `/design`.
+2. **URL은 콘텐츠 타입으로 2차 분기**: 메시지에 URL → 먼저 `/read`로 Markdown 추출 → 긴 연구 자료면 `/learn` 연결, 한 줄 요약이면 `/read`에서 멈춤.
+3. **버그 수정 vs review**: 코드가 인도되거나 PR로 갔다 → `/check`. 코드가 안 돌거나 동작이 틀렸다 → `/hunt`. 둘 다 "한번 봐줘"에 매칭될 수 있으니 "구체 에러 현상이 있는가"로 판단.
+4. **설정 이상 vs 코드 에러**: Claude 자체가 말 안 듣거나 hook이 안 뜨거나 MCP가 안 됨 → `/health`. 사용자가 짠 코드가 예외를 던짐 → `/hunt`.
+5. **장문 제작 vs 다듬기**: 0에서 완성까지 → `/learn`. 이미 있는 원고 다듬기 → `/write`.
+6. **판단 vs 디버깅**: "판단해줘" + 에러/예외/안 됨 → `/hunt` (문제 진단). "판단해줘" + 필요한지/유지할지/가치 있는지 → `/think` Evaluation Mode (가치 판단).
+7. **마지막 안전망**: 둘 다 모호하면 두 SKILL.md의 "Not for" 절을 읽고 배제법으로. 그래도 모호하면 사용자에게 묻는다.
 
-## Chaining（常见串联）
+## Chaining (자주 쓰는 연결)
 
-技能之间的转换需要用户手动触发，不会自动串联。每个技能完成后会停下来，等你决定下一步。
+스킬 간 전환은 사용자가 수동으로 트리거한다. 자동 연결되지 않는다. 각 스킬은 작업 끝나면 멈추고 다음 단계를 사용자가 결정하길 기다린다.
 
-- `/think` 出方案 → **用户说"实现"** → 实施 → **用户说"/check"** → `/check` 把关
-- `/read` 取回多篇 URL → **用户说"/learn"** → `/learn` 综合成文
-- `/learn` 出初稿 → **用户说"/write"** → `/write` 去 AI 味
-- `/hunt` 定位根因 → **用户说"修"** → 修完 → **用户说"/check"** → `/check` 确认没副作用
-- `/health` 发现 skill 配置问题 → **用户说"修"** → 修完 → **用户说"/health"** → 再跑一次 `/health`
+- `/think` 방안 도출 → **사용자 "구현해"** → 구현 → **사용자 "/check"** → `/check` 검수
+- `/read` 여러 URL 수집 → **사용자 "/learn"** → `/learn` 종합
+- `/learn` 초안 → **사용자 "/write"** → `/write` AI 티 제거
+- `/hunt` 근본 원인 → **사용자 "고쳐"** → 수정 → **사용자 "/check"** → `/check` 부작용 확인
+- `/health` 스킬 설정 문제 발견 → **사용자 "고쳐"** → 수정 → **사용자 "/health"** → `/health` 재실행
 
 ## Latent vs Deterministic
 
-Waza 的技能都是 fat skill（Markdown 判断），底层的确定性约束走 `scripts/verify-skills.sh` 和 `rules/*.md`。新加能力时先问：
+Waza의 스킬은 모두 fat skill (Markdown 판단)이고, 결정론적 제약은 `scripts/verify-skills.sh`와 `rules/*.md`로 간다. 새 능력을 더할 때 먼저 묻는다.
 
-- 需要判断 / 适应场景 / 追问用户？→ skill
-- 同入同出 / 只是校验和列举？→ script 或 rule
+- 판단 / 상황 적응 / 사용자에게 되묻기가 필요? → skill
+- 입력 같으면 출력 같음 / 검증과 나열만? → script 또는 rule
 
-不要把 lint 检查写成 skill，也不要把"怎么研究一个陌生领域"塞进脚本。详见根目录 `CLAUDE.md` 的决策表。
+lint 검사를 skill로 짜지 말고, "낯선 도메인을 어떻게 조사할까"를 셸 스크립트에 넣지 말라. 자세한 건 루트의 `CLAUDE.md` 결정 표 참고.

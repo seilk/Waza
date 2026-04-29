@@ -57,7 +57,7 @@
     },
     {
       "name": "write",
-      "description": "Strips AI writing patterns and rewrites prose to sound natural in Chinese or English. Only activates on explicit writing or editing requests. Not for code comments, commit messages, or inline docs.",
+      "description": "Strips AI writing patterns and rewrites prose to sound natural in Korean, Chinese, or English. Only activates on explicit writing or editing requests. Not for code comments, commit messages, or inline docs.",
       "version": "3.18.0",
       "category": "development",
       "source": "./skills/write",

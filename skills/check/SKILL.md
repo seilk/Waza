@@ -1,7 +1,7 @@
 ---
 name: check
 description: "Reviews code diffs after implementation, auto-fixes safe issues, and runs specialist security and architecture reviewers on large diffs. Also triages issues and PRs when the user mentions them. Not for exploring ideas or debugging."
-when_to_use: "review, 看看代码, 检查一下, 有没有问题, 是否需要优化, 合并前, 看看issue, 看看PR, review my code, check changes, before merge, code review"
+when_to_use: "review, 코드 봐줘, 확인해줘, 문제 있어?, 최적화 필요해?, 병합 전에, issue 봐줘, PR 봐줘, review my code, check changes, before merge, code review"
 metadata:
   version: "3.15.0"
 ---
@@ -18,9 +18,9 @@ Get the full diff between the current branch and the base branch. If unclear, as
 
 ## Triage Mode
 
-Activate when the user mentions: issue, PR, "review all", triage, "batch", or "批量处理". Skip the diff flow and run this instead.
+Activate when the user mentions: issue, PR, "review all", triage, "batch", or "일괄 처리". Skip the diff flow and run this instead.
 
-**Flow:** Pull open items with `gh issue list -R <repo> --state open --limit 20` and `gh pr list -R <repo> --state open`. For each item, check if a fix already shipped: `git log --oneline <latest-tag>..HEAD | grep -i "<keyword>"`. If shipped: close with note. If merged but unreleased: reply "已修复，等下一个版本 release" and close. If no fix: analyze and act. Fix now if possible (`fix: closes #N` commit); for Mole nightly-fixed items reply `@<user>, this is already fixed in the latest nightly. Upgrade: mo update --nightly` and close; for valid-but-unreleased items acknowledge and leave open; for invalid items give one-two sentence reason and close; for PRs with implementation issues re-implement yourself, explain changes, close without merging. Draft every reply and confirm with the maintainer before posting.
+**Flow:** Pull open items with `gh issue list -R <repo> --state open --limit 20` and `gh pr list -R <repo> --state open`. For each item, check if a fix already shipped: `git log --oneline <latest-tag>..HEAD | grep -i "<keyword>"`. If shipped: close with note. If merged but unreleased: reply "수정 완료했고 다음 버전 release를 기다리면 됩니다" and close. If no fix: analyze and act. Fix now if possible (`fix: closes #N` commit); for Mole nightly-fixed items reply `@<user>, this is already fixed in the latest nightly. Upgrade: mo update --nightly` and close; for valid-but-unreleased items acknowledge and leave open; for invalid items give one-two sentence reason and close; for PRs with implementation issues re-implement yourself, explain changes, close without merging. Draft every reply and confirm with the maintainer before posting.
 
 **Sign-off line (append to standard sign-off):**
 ```

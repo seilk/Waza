@@ -1,7 +1,7 @@
 ---
 name: write
-description: "Strips AI writing patterns and rewrites prose to sound natural in Chinese or English. Only activates on explicit writing or editing requests. Not for code comments, commit messages, or inline docs."
-when_to_use: "帮我写, 改稿, 润色, 去AI味, 写一段, draft, edit text, proofread, sound natural, polish, rewrite"
+description: "Strips AI writing patterns and rewrites prose to sound natural in Korean, Chinese, or English. Only activates on explicit writing or editing requests. Not for code comments, commit messages, or inline docs."
+when_to_use: "글 써줘, 원고 고쳐줘, 다듬어줘, AI 느낌 빼줘, 한 문단 써줘, draft, edit text, proofread, sound natural, polish, rewrite"
 metadata:
   version: "3.18.0"
 ---
@@ -17,6 +17,7 @@ Strip AI patterns from prose and rewrite it to sound human. Do not improve vocab
 1. **Text present?** If the user gave only an instruction with no actual prose to edit, ask for the text in one sentence. Do not proceed.
 2. **Audience locked?** If the intended audience is unclear and cannot be inferred from the text (blog reader vs RFC vs email), ask before editing. Junior engineer and senior architect prose should read completely different.
 3. **Language detected from the text being edited**, not the user's command:
+   - Contains Korean characters → load `references/write-ko.md`
    - Contains Chinese characters → load `references/write-zh.md`
    - Otherwise → load `references/write-en.md`
 
@@ -30,16 +31,16 @@ Read the loaded reference file. Then edit. No summary, no commentary, no explana
 
 ## Bilingual Review Mode
 
-Activate when: mixed Chinese/English, "Chinese copywriting", "bilingual consistency", "release notes"
+Activate when: mixed Korean/English, "Korean copywriting", "bilingual consistency", "release notes"
 
-**Chinese rules** (from https://github.com/mzlogin/chinese-copywriting-guidelines):
-- Space between Chinese and English characters (CN文字EN → CN 文字 EN)
-- No mixing of punctuation (Chinese uses 、。？！；：, not commas/periods)
-- Consistent terminology across all instances
+**Korean rules**:
+- Keep spacing natural around Korean and English terms.
+- Do not mix punctuation styles without a reason.
+- Keep terminology consistent across all instances.
 
-**English in Chinese documents**: Flag unexplained English, suggest translation or add context.
+**English in Korean documents**: Flag unexplained English, suggest translation or add context.
 
-**Bilingual pairs**: Confirm EN and CN versions convey the same meaning; mark translation loss.
+**Bilingual pairs**: Confirm EN and KO versions convey the same meaning; mark translation loss.
 
 ## Release Note Template Mode
 
